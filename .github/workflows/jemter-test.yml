@@ -20,25 +20,24 @@ jobs:
         with:
           node-version: 18
 
-      - name: Start json-server
+      # 4. JMeter 최신 버전 다운로드 및 압축 해제
+      - name: Install Latest JMeter
         run: |
-          npm install -g json-server
-          json-server --watch ./src/backend/db-pika.json --port 3333 --cors & 
-          sleep 5 
+          wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.6.3.tgz
+          tar -xzf apache-jmeter-5.6.3.tgz
+          echo "JMETER_HOME=$GITHUB_WORKSPACE/apache-jmeter-5.6.3" >> $GITHUB_ENV
 
-      - name: Install JMeter
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jmeter
-
+      # 5. JMeter CLI 실행 (경로를 설치한 폴더의 bin/jmeter로 지정)
       - name: Run JMeter Performance Test
         run: |
-          # 🚨🚨🚨 각자 jmx 파일명에 맞게, 아래 명령어 수정할 것
-          jmeter -n -t ./json-server-test-plan.jmx -l ./result.jtl -e -o ./dashboard_report
+          mkdir -p dashboard_report
+          # 다운로드 받은 최신 버전의 실행 파일을 직접 호출
+          ./apache-jmeter-5.6.3/bin/jmeter -n -t ./json-server-test-plan.jmx -l ./result.jtl -e -o ./dashboard_report
 
+      # 6. HTML 리포트 결과 저장 (성공/실패 상관없이 무조건 업로드)
       - name: Upload JMeter Report
         uses: actions/upload-artifact@v4
         if: always() 
         with:
           name: jmeter-performance-report
-          path: ./dashboard_report/
+          path: dashboard_report/
