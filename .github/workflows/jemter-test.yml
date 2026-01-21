@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "master", "dev" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master", "dev" ]
   workflow_dispatch: # Actions 탭에서 수동으로 '딸깍' 실행하기 위한 트리거
 
 jobs:
