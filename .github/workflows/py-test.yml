@@ -1,11 +1,13 @@
-name: 모든 브랜치 Pytest 및 Allure 리포트 생성
+name: feature, Pytest 및 Allure 리포트 생성
 
 on:
   push:
+    # 모든 브랜치에 푸시가 발생하면 실행함
+    branches: ["**"]
     # master와 dev 브랜치를 제외한 모든 브랜치에서 푸시 발생 시 실행
-    branches-ignore:
-      - 'master'
-      - 'dev'
+    #branches-ignore:
+    #  - 'master'
+    #  - 'dev'
   # Actions 탭에서 수동 실행 가능
   workflow_dispatch:
 
