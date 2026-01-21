@@ -24,7 +24,7 @@ jobs:
 
       # [3] 가짜 API 서버(json-server) 기동
       # &를 붙여 백그라운드 실행해야 다음 스텝으로 넘어감
-      # sleep 5는 서버가 완전히 부팅될 시간을 주는 'QA의 센스'
+      # sleep 5는 서버가 완전히 부팅될 시간을 줌
       - name: Start Mock API Server
         run: |
           npm install -g json-server
