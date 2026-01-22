@@ -8,7 +8,7 @@ def test_get_posts_schema_simple():
     assert response.status_code == 200
     
     data = response.json()
-    
+    ##
     # 2. 스키마 검증 (리스트 형태인지, 필수 키가 있는지)
     assert isinstance(data, list)
     for post in data:
